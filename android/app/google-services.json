@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "588553978404",
+    "project_id": "splintermovieapp",
+    "storage_bucket": "splintermovieapp.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:588553978404:android:462f1a66a7c295b2580eb1",
+        "android_client_info": {
+          "package_name": "com.example.movies_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZX8QBQFRRvtXqZVeeK3JaiQAhH0oiiQY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
