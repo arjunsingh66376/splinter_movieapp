@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:movies_app/pages/homepage.dart';
 import 'package:movies_app/utls/context_extension.dart';
+import 'package:movies_app/widget/apiwidgets/bottomtabnavigation.dart';
 
 class Splashscreen extends StatelessWidget {
   const Splashscreen({super.key});
@@ -14,7 +15,7 @@ class Splashscreen extends StatelessWidget {
       body: Container(
         color: Colors.black,
         child: Lottie.asset(
-          '/images/splinter.json',
+          'images/splinter.json',
           width: screenw,
           height: screenh,
           onLoaded: (animationinfo) {
@@ -22,7 +23,9 @@ class Splashscreen extends StatelessWidget {
               animationinfo.duration,
               () => Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => Homepage()),
+                MaterialPageRoute(
+                  builder: (context) => Bottomtabnavigationpage(),
+                ),
               ),
             );
           },
