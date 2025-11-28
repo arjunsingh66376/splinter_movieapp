@@ -1,6 +1,10 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:movies_app/widget/apiwidgets/airingtoday.dart';
 import 'package:movies_app/widget/apiwidgets/nowplaying.dart';
+import 'package:movies_app/widget/apiwidgets/toprated.dart';
+import 'package:movies_app/widget/apiwidgets/upcoming.dart';
 import 'package:movies_app/widget/customdrawer.dart';
 
 import 'package:movies_app/widget/movies_carousel.dart';
@@ -13,12 +17,18 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+  @override
+  void initState() {
+    Airingtoday();
+    super.initState();
+  }
+
   final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.black,
+      backgroundColor: Colors.black,
       key: _scaffoldkey,
       drawer: Customdrawer(),
       appBar: AppBar(
@@ -54,26 +64,63 @@ class _HomepageState extends State<Homepage> {
         // centerTitle: true,
       ),
       body: Container(
-        padding: EdgeInsets.only(top: 10),
+        padding: EdgeInsets.all(10),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               MoviesCarousel(),
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: Text(
-                  'Now Playing',
-                  style: GoogleFonts.pixelifySans(
-                    fontSize: 30,
-                    color: Colors.redAccent,
-                    fontWeight: FontWeight.bold,
-                  ),
+
+              SizedBox(height: 30),
+              Text(
+                'Now Playing',
+
+                style: TextStyle(
+                  fontFamily: 'pdark',
+                  color: Colors.red,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 5),
+              SizedBox(height: 10),
 
               Nowplaying(),
+
+              Text(
+                'Upcoming',
+                style: TextStyle(
+                  fontFamily: 'pdark',
+                  color: Colors.red,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 10),
+              Upcoming(),
+              SizedBox(height: 10),
+              Text(
+                'top rated',
+                style: TextStyle(
+                  fontFamily: 'pdark',
+                  color: Colors.red,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 10),
+              Toprated(),
+              SizedBox(height: 10),
+              Text(
+                'airing today',
+                style: TextStyle(
+                  fontFamily: 'pdark',
+                  color: Colors.red,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 10),
+              Airingtoday(),
             ],
           ),
         ),

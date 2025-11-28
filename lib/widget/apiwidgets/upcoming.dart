@@ -4,21 +4,20 @@ import 'package:movies_app/constant/url.dart';
 import 'package:movies_app/model/movie.dart';
 import 'package:movies_app/utls/context_extension.dart';
 
-class Nowplaying extends StatefulWidget {
-  const Nowplaying({super.key});
+class Upcoming extends StatefulWidget {
+  const Upcoming({super.key});
 
   @override
-  State<Nowplaying> createState() => _NowplayingState();
+  State<Upcoming> createState() => _UpcomingState();
 }
 
-class _NowplayingState extends State<Nowplaying> {
-  final TmdbService tmdbService = TmdbService();
-  late Future<List<Movie>> _nowplaying;
-  final String imgurl = Url.baseImgUrl;
+class _UpcomingState extends State<Upcoming> {
+  late Future<List<Movie>> _upcoming;
+  final url = Url.baseImgUrl;
 
   @override
   void initState() {
-    _nowplaying = TmdbService().getnowplaying();
+    _upcoming = TmdbService().getupcoming();
     super.initState();
   }
 
@@ -26,9 +25,8 @@ class _NowplayingState extends State<Nowplaying> {
   Widget build(BuildContext context) {
     final screenh = context.h;
     final screenw = context.w;
-
     return FutureBuilder<List<Movie>>(
-      future: _nowplaying,
+      future: _upcoming,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
@@ -60,7 +58,7 @@ class _NowplayingState extends State<Nowplaying> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(6),
                           child: Image.network(
-                            '$imgurl${m.posterpath}',
+                            '$url${m.posterpath}',
                             fit: BoxFit.cover,
                           ),
                         ),

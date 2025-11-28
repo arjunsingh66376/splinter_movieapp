@@ -16,7 +16,7 @@ class MoviesCarousel extends StatefulWidget {
 class _MoviesCarouselState extends State<MoviesCarousel> {
   final TmdbService tmdbService = TmdbService();
   late Future<List<Movie>> _popularmovies;
-  static const String baseimgurl = 'https://image.tmdb.org/t/p/w500/';
+  static const String baseimgurl = 'https://image.tmdb.org/t/p/w500';
 
   @override
   void initState() {

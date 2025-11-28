@@ -4,21 +4,20 @@ import 'package:movies_app/constant/url.dart';
 import 'package:movies_app/model/movie.dart';
 import 'package:movies_app/utls/context_extension.dart';
 
-class Nowplaying extends StatefulWidget {
-  const Nowplaying({super.key});
+class Airingtoday extends StatefulWidget {
+  const Airingtoday({super.key});
 
   @override
-  State<Nowplaying> createState() => _NowplayingState();
+  State<Airingtoday> createState() => _AiringtodayState();
 }
 
-class _NowplayingState extends State<Nowplaying> {
-  final TmdbService tmdbService = TmdbService();
-  late Future<List<Movie>> _nowplaying;
-  final String imgurl = Url.baseImgUrl;
+class _AiringtodayState extends State<Airingtoday> {
+  late Future<List<Movie>> _airingtoday;
+  final url = Url.baseImgUrl;
 
   @override
   void initState() {
-    _nowplaying = TmdbService().getnowplaying();
+    _airingtoday = TmdbService().getairingtoday();
     super.initState();
   }
 
@@ -26,9 +25,8 @@ class _NowplayingState extends State<Nowplaying> {
   Widget build(BuildContext context) {
     final screenh = context.h;
     final screenw = context.w;
-
     return FutureBuilder<List<Movie>>(
-      future: _nowplaying,
+      future: _airingtoday,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
@@ -60,7 +58,7 @@ class _NowplayingState extends State<Nowplaying> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(6),
                           child: Image.network(
-                            '$imgurl${m.posterpath}',
+                            '$url${m.posterpath}',
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -69,8 +67,8 @@ class _NowplayingState extends State<Nowplaying> {
                       SizedBox(height: 10),
 
                       Text(
-                        m.title,
-                        maxLines: 2,
+                        '${m.voteaverage.toString()} ⭐',
+                        maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           color: Theme.of(context).primaryColor,
