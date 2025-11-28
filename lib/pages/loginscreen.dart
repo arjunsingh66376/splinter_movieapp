@@ -1,7 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:movies_app/firebase_function/firebasedb.dart';
+import 'package:movies_app/function/showresetdialog.dart';
+import 'package:movies_app/pages/homepage.dart';
 import 'package:movies_app/utls/context_extension.dart';
 import 'package:movies_app/widget/elevatedbutton.dart';
 import 'package:movies_app/widget/glasscontainer.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Loginscreen extends StatefulWidget {
   const Loginscreen({super.key});
@@ -11,17 +17,100 @@ class Loginscreen extends StatefulWidget {
 }
 
 class _LoginscreenState extends State<Loginscreen> {
+  final TextEditingController namecontro = TextEditingController();
+  final TextEditingController emailcontro = TextEditingController();
+  final TextEditingController passwordcontro = TextEditingController();
+  bool islogin = true;
+  bool isloading = false;
+  final formkey = GlobalKey<FormState>();
+
+  Future<void> _submit() async {
+    FocusScope.of(context).unfocus();
+    if (!formkey.currentState!.validate()) return;
+    setState(() {
+      isloading = true;
+    });
+
+    try {
+      if (islogin) {
+        await Firebasedb().signIn(
+          email: emailcontro.text.trim(),
+          password: passwordcontro.text.trim(),
+        );
+      } else {
+        // we do this so that we get  the uid  created by firebase
+        final usercred = await Firebasedb().signUp(
+          email: emailcontro.text.trim(),
+          password: passwordcontro.text.trim(),
+        );
+        String uid = usercred.user!.uid;
+        Map<String, dynamic> usermap = {
+          "uid": uid,
+          "name": namecontro.text.trim(),
+          "email": emailcontro.text.trim(),
+          "password": passwordcontro.text.trim(),
+          "created_at": FieldValue.serverTimestamp(),
+        };
+
+        await Firebasedb().saveuserinfo(usermap, uid);
+      }
+      if (context.mounted) {
+        Fluttertoast.showToast(
+          msg: islogin ? "login successful" : "signup successful",
+          backgroundColor: Colors.black,
+          textColor: Colors.white,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+        );
+
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => Homepage()),
+        );
+      }
+    } on FirebaseAuthException catch (error) {
+      String message;
+      if (error.code == 'email-already-in-use') {
+        message = 'email already in use';
+      } else if (error.code == 'user-not-found') {
+        message = 'User not  found';
+      } else if (error.code == 'wrong-password') {
+        message = 'incorrect  password';
+      } else if (error.code == 'invalid-email') {
+        message = 'Invalid email format';
+      } else {
+        message = 'error: ${error.message}';
+      }
+      if (context.mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(message)));
+      }
+    } catch (errrors) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('something  went  wrong : $errrors')),
+        );
+      }
+    } finally {
+      setState(() {
+        isloading = false;
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    namecontro.dispose();
+    emailcontro.dispose();
+    passwordcontro.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final TextEditingController namecontro = TextEditingController();
-    final TextEditingController emailcontro = TextEditingController();
-    final TextEditingController passwordcontro = TextEditingController();
     final double screenw = context.w;
     final double screenh = context.h;
-    bool islogin = true;
-    final formkey = GlobalKey<FormState>();
-
-    void _submit() {}
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -50,7 +139,7 @@ class _LoginscreenState extends State<Loginscreen> {
                 GlassContainer(
                   child: Form(
                     key: formkey,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    // autovalidateMode: AutovalidateMode.onUserInteraction,
                     child: Container(
                       margin: EdgeInsets.all(20),
                       child: Column(
@@ -83,7 +172,7 @@ class _LoginscreenState extends State<Loginscreen> {
                                   if (value == null || value.trim().isEmpty) {
                                     return 'please fill required filed';
                                   } else {
-                                    null;
+                                    return null;
                                   }
                                 },
                               ),
@@ -114,7 +203,7 @@ class _LoginscreenState extends State<Loginscreen> {
                                 } else if (!value.contains('@')) {
                                   return 'please enter  valid  email id ';
                                 } else {
-                                  null;
+                                  return null;
                                 }
                               },
                             ),
@@ -145,25 +234,33 @@ class _LoginscreenState extends State<Loginscreen> {
                                 } else if (value.length < 6) {
                                   return 'password must be  atleast 6 chars ';
                                 } else {
-                                  null;
+                                  return null;
                                 }
                               },
                             ),
                           ),
 
                           SizedBox(height: 30),
-                          Center(
-                            child: Custombutton(
-                              action: _submit,
-                              color: Colors.black,
-                              name: 'Submit',
-                              textcolor: Colors.white,
-                            ),
-                          ),
+
+                          isloading
+                              ? Center(
+                                  child: const CircularProgressIndicator(
+                                    color: Colors.white,
+                                  ),
+                                )
+                              : Center(
+                                  child: Custombutton(
+                                    action: _submit,
+                                    color: Colors.black,
+                                    name: 'Submit',
+                                    textcolor: Colors.white,
+                                  ),
+                                ),
                           if (islogin)
                             Center(
                               child: TextButton(
-                                onPressed: () => _submit(),
+                                onPressed: () =>
+                                    showresetdialog(context, emailcontro),
                                 child: const Text(
                                   "Forgot Password?",
                                   style: TextStyle(
@@ -175,9 +272,13 @@ class _LoginscreenState extends State<Loginscreen> {
                             ),
                           Center(
                             child: TextButton(
-                              onPressed: () => _submit(),
+                              onPressed: () {
+                                setState(() {
+                                  islogin = !islogin;
+                                });
+                              },
                               child: Text(
-                                islogin ? "sign Up ?" : "login ?",
+                                islogin ? "sign up ?" : 'login ?',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,

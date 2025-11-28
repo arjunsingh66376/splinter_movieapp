@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:movies_app/constant/styles.dart';
 
 class Custombutton extends StatelessWidget {
   final VoidCallback action;

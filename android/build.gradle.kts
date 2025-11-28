@@ -1,4 +1,14 @@
 
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath("com.android.tools.build:gradle:8.1.1") // match your Android Gradle plugin version
+        classpath("com.google.gms:google-services:4.4.4") // <-- add this
+    }
+}
 
 
 
