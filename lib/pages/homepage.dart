@@ -18,15 +18,16 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // backgroundColor: Colors.black,
       key: _scaffoldkey,
       drawer: Customdrawer(),
       appBar: AppBar(
-        // backgroundColor: Colors.black,
+        backgroundColor: Colors.black,
         leading: IconButton(
           onPressed: () {
             _scaffoldkey.currentState?.openDrawer();
           },
-          icon: Icon(Icons.menu),
+          icon: Icon(Icons.menu, color: Colors.redAccent),
         ),
 
         title: Padding(
@@ -38,7 +39,7 @@ class _HomepageState extends State<Homepage> {
                 style: TextStyle(
                   fontFamily: 'pdark',
                   fontSize: 35,
-                  color: Colors.black,
+                  color: Colors.red,
                 ),
               ),
               Image.asset(
@@ -64,8 +65,9 @@ class _HomepageState extends State<Homepage> {
                 child: Text(
                   'Now Playing',
                   style: GoogleFonts.pixelifySans(
-                    fontSize: 20,
-                    color: Colors.black,
+                    fontSize: 30,
+                    color: Colors.redAccent,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),

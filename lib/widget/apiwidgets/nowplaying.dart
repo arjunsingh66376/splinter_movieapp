@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:movies_app/api/api_service/tmdb_service.dart';
 import 'package:movies_app/constant/url.dart';
 import 'package:movies_app/model/movie.dart';
@@ -26,6 +27,7 @@ class _NowplayingState extends State<Nowplaying> {
   @override
   Widget build(BuildContext context) {
     final screenh = context.h;
+    final screenw = context.w;
 
     return FutureBuilder<List<Movie>>(
       future: _nowplaying,
@@ -40,18 +42,45 @@ class _NowplayingState extends State<Nowplaying> {
           final moviedata = snapshot.data!;
 
           return SizedBox(
-            height: screenh * 0.2,
+            height: screenh * 0.22,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: moviedata.length,
               itemBuilder: (context, index) {
                 final m = moviedata[index];
-                return Card(
-                  color: Colors.black,
-                  elevation: 5,
-                  child: Image.network(
-                    '$baseimgurl${m.posterpath}',
-                    fit: BoxFit.cover,
+                return Container(
+                  width: screenw * 0.3,
+                  // color: Colors.amber,
+                  padding: EdgeInsets.only(left: 10, right: 10),
+
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: screenh * 0.16,
+                        width: screenw * 0.3,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(6),
+                          child: Image.network(
+                            '$baseimgurl${m.posterpath}',
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+
+                      SizedBox(height: 10),
+
+                      Text(
+                        m.title,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: Colors.redAccent,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
                   ),
                 );
               },
