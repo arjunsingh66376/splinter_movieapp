@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:movies_app/firebase_function/firebasedb.dart';
 import 'package:movies_app/function/showresetdialog.dart';
 import 'package:movies_app/pages/homepage.dart';
-import 'package:movies_app/utls/context_extension.dart';
-import 'package:movies_app/widget/elevatedbutton.dart';
-import 'package:movies_app/widget/glasscontainer.dart';
+import 'package:movies_app/utils/context_extension.dart';
+import 'package:movies_app/widget/normalwidgets/elevatedbutton.dart';
+import 'package:movies_app/widget/normalwidgets/glasscontainer.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class Loginscreen extends StatefulWidget {

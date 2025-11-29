@@ -5,10 +5,12 @@ class Movie {
   String posterpath;
   String title;
   double voteaverage;
+  String name;
   Movie({
     required this.posterpath,
     required this.title,
     required this.voteaverage,
+    required this.name,
   });
 
   Map<String, dynamic> toMap() {
@@ -16,6 +18,7 @@ class Movie {
       'poster_path': posterpath,
       'title': title,
       'vote_average': voteaverage,
+      'name': name,
     };
   }
 
@@ -24,6 +27,7 @@ class Movie {
       posterpath: map['poster_path'] ?? "",
       title: map['title'] ?? "no title",
       voteaverage: (map['vote_average'] ?? 0).toDouble(),
+      name: map['name'] ?? 'no name',
     );
   }
 

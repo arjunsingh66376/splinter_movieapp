@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movies_app/api/api_service/tmdb_service.dart';
 import 'package:movies_app/constant/url.dart';
 import 'package:movies_app/model/movie.dart';
-import 'package:movies_app/utls/context_extension.dart';
+import 'package:movies_app/utils/context_extension.dart';
 
 class Toprated extends StatefulWidget {
   const Toprated({super.key});

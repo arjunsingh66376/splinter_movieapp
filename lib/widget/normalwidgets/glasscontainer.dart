@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:movies_app/utls/context_extension.dart';
+import 'package:movies_app/utils/context_extension.dart';
 
 class GlassContainer extends StatelessWidget {
   final Widget child;
@@ -10,7 +10,7 @@ class GlassContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double screenw = context.w;
-    final double screenh = context.h;
+    // final double screenh = context.h;
     return ClipRRect(
       borderRadius: BorderRadius.circular(24),
       child: BackdropFilter(

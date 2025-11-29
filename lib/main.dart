@@ -1,9 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:movies_app/pages/homepage.dart';
-import 'package:movies_app/pages/loginscreen.dart';
 import 'package:movies_app/pages/splashscreen.dart';
-import 'package:movies_app/widget/apiwidgets/bottomtabnavigation.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

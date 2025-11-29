@@ -9,7 +9,7 @@ class Firebasedb {
     try {
       return await _firestore.collection('users').doc(uid).set(userinfo);
     } catch (e) {
-      print('Firestore write error: $e');
+      // print('Firestore write error: $e');
       rethrow;
     }
   }
@@ -18,7 +18,7 @@ class Firebasedb {
     try {
       return _firestore.collection('users').doc(uid).snapshots();
     } catch (e) {
-      print('Firestore error  while gettin user info: $e');
+      // print('Firestore error  while gettin user info: $e');
       rethrow;
     }
   }
@@ -33,7 +33,7 @@ class Firebasedb {
         password: password,
       );
     } catch (e) {
-      print('error  while  signin  : $e');
+      // print('error  while  signin  : $e');
       rethrow;
     }
   }
@@ -48,7 +48,7 @@ class Firebasedb {
         password: password,
       );
     } catch (e) {
-      print('error while signing up : $e');
+      // print('error while signing up : $e');
       rethrow;
     }
   }

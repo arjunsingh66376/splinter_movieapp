@@ -4,20 +4,20 @@ import 'package:movies_app/constant/url.dart';
 import 'package:movies_app/model/movie.dart';
 import 'package:movies_app/utils/context_extension.dart';
 
-class Upcoming extends StatefulWidget {
-  const Upcoming({super.key});
+class Tvrecommendation extends StatefulWidget {
+  const Tvrecommendation({super.key});
 
   @override
-  State<Upcoming> createState() => _UpcomingState();
+  State<Tvrecommendation> createState() => _TvrecommendationState();
 }
 
-class _UpcomingState extends State<Upcoming> {
-  late Future<List<Movie>> _upcoming;
+class _TvrecommendationState extends State<Tvrecommendation> {
+  late Future<List<Movie>> _tvrecommendation;
   final url = Url.baseImgUrl;
 
   @override
   void initState() {
-    _upcoming = TmdbService().getupcoming();
+    _tvrecommendation = TmdbService().gettvrecommendation();
     super.initState();
   }
 
@@ -26,7 +26,7 @@ class _UpcomingState extends State<Upcoming> {
     final screenh = context.h;
     final screenw = context.w;
     return FutureBuilder<List<Movie>>(
-      future: _upcoming,
+      future: _tvrecommendation,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
@@ -67,7 +67,7 @@ class _UpcomingState extends State<Upcoming> {
                       SizedBox(height: 10),
 
                       Text(
-                        m.title,
+                        m.name,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(

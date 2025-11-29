@@ -1,7 +1,6 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_app/pages/homepage.dart';
-import 'package:movies_app/pages/loginscreen.dart';
 import 'package:movies_app/pages/profilepage.dart';
 import 'package:movies_app/pages/searchpage.dart';
 
@@ -24,6 +23,7 @@ class _BottomtabnavigationpageState extends State<Bottomtabnavigationpage> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: CurvedNavigationBar(
+        buttonBackgroundColor: Colors.white,
         //  change  the background color  according to  themee like  when   theme is  white then  put the  bg   color    white
         backgroundColor: Colors.red,
         color: Colors.black,

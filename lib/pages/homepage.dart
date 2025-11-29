@@ -1,13 +1,11 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:movies_app/widget/apiwidgets/airingtoday.dart';
 import 'package:movies_app/widget/apiwidgets/nowplaying.dart';
 import 'package:movies_app/widget/apiwidgets/toprated.dart';
 import 'package:movies_app/widget/apiwidgets/upcoming.dart';
-import 'package:movies_app/widget/customdrawer.dart';
+import 'package:movies_app/widget/normalwidgets/customdrawer.dart';
 
-import 'package:movies_app/widget/movies_carousel.dart';
+import 'package:movies_app/widget/normalwidgets/movies_carousel.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});

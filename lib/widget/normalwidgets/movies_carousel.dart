@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/material.dart';
 import 'package:movies_app/api/api_service/tmdb_service.dart';
-import 'package:movies_app/constant/url.dart';
 import 'package:movies_app/model/movie.dart';
-import 'package:movies_app/utls/context_extension.dart';
+import 'package:movies_app/utils/context_extension.dart';
 
 class MoviesCarousel extends StatefulWidget {
   const MoviesCarousel({super.key});
@@ -43,7 +41,7 @@ class _MoviesCarouselState extends State<MoviesCarousel> {
           return CarouselSlider(
             options: CarouselOptions(height: screenh * 0.4, autoPlay: true),
             items: moviedata.map((i) {
-              print('${i.posterpath}');
+              // print('${i.posterpath}');
               return Builder(
                 builder: (BuildContext context) {
                   return GestureDetector(
