@@ -5,33 +5,26 @@ import 'package:movies_app/model/movie.dart';
 import 'package:movies_app/utils/context_extension.dart';
 
 class MoviesCarousel extends StatefulWidget {
-  const MoviesCarousel({super.key});
+  final Future<List<Movie>> future;
+  const MoviesCarousel({super.key, required this.future});
 
   @override
   State<MoviesCarousel> createState() => _MoviesCarouselState();
 }
 
 class _MoviesCarouselState extends State<MoviesCarousel> {
-  final TmdbService tmdbService = TmdbService();
-  late Future<List<Movie>> _popularmovies;
   static const String baseimgurl = 'https://image.tmdb.org/t/p/w500';
-
-  @override
-  void initState() {
-    _popularmovies = tmdbService.getpopularmovies();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     final double screenw = context.w;
     final double screenh = context.h;
     return FutureBuilder<List<Movie>>(
-      future: _popularmovies,
+      future: widget.future,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
-            child: const CircularProgressIndicator(color: Colors.purpleAccent),
+            child: const CircularProgressIndicator(color: Colors.red),
           );
         } else if (snapshot.hasError) {
           return Text('error : ${snapshot.error}');

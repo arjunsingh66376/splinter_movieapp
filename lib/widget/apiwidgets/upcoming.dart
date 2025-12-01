@@ -1,32 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/api/api_service/tmdb_service.dart';
 import 'package:movies_app/constant/url.dart';
 import 'package:movies_app/model/movie.dart';
 import 'package:movies_app/utils/context_extension.dart';
 
 class Upcoming extends StatefulWidget {
-  const Upcoming({super.key});
+  final Future<List<Movie>> future;
+
+  const Upcoming({super.key, required this.future});
 
   @override
   State<Upcoming> createState() => _UpcomingState();
 }
 
 class _UpcomingState extends State<Upcoming> {
-  late Future<List<Movie>> _upcoming;
   final url = Url.baseImgUrl;
-
-  @override
-  void initState() {
-    _upcoming = TmdbService().getupcoming();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     final screenh = context.h;
     final screenw = context.w;
     return FutureBuilder<List<Movie>>(
-      future: _upcoming,
+      future: widget.future,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(

@@ -42,7 +42,7 @@ class _BottomtabnavigationpageState extends State<Bottomtabnavigationpage> {
           });
         },
       ),
-      body: allwidgetpages[intialindex],
+      body: IndexedStack(index: intialindex, children: allwidgetpages),
     );
   }
 }

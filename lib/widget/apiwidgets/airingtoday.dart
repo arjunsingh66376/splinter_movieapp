@@ -5,28 +5,22 @@ import 'package:movies_app/model/movie.dart';
 import 'package:movies_app/utils/context_extension.dart';
 
 class Airingtoday extends StatefulWidget {
-  const Airingtoday({super.key});
+  final Future<List<Movie>> future;
+  const Airingtoday({super.key, required this.future});
 
   @override
   State<Airingtoday> createState() => _AiringtodayState();
 }
 
 class _AiringtodayState extends State<Airingtoday> {
-  late Future<List<Movie>> _airingtoday;
   final url = Url.baseImgUrl;
-
-  @override
-  void initState() {
-    _airingtoday = TmdbService().getairingtoday();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     final screenh = context.h;
     final screenw = context.w;
     return FutureBuilder<List<Movie>>(
-      future: _airingtoday,
+      future: widget.future,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(

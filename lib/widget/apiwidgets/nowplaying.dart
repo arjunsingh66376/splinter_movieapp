@@ -5,22 +5,16 @@ import 'package:movies_app/model/movie.dart';
 import 'package:movies_app/utils/context_extension.dart';
 
 class Nowplaying extends StatefulWidget {
-  const Nowplaying({super.key});
+  final Future<List<Movie>> future;
+
+  const Nowplaying({super.key, required this.future});
 
   @override
   State<Nowplaying> createState() => _NowplayingState();
 }
 
 class _NowplayingState extends State<Nowplaying> {
-  final TmdbService tmdbService = TmdbService();
-  late Future<List<Movie>> _nowplaying;
   final String imgurl = Url.baseImgUrl;
-
-  @override
-  void initState() {
-    _nowplaying = TmdbService().getnowplaying();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +22,7 @@ class _NowplayingState extends State<Nowplaying> {
     final screenw = context.w;
 
     return FutureBuilder<List<Movie>>(
-      future: _nowplaying,
+      future: widget.future,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(

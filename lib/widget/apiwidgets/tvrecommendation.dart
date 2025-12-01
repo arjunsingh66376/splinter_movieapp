@@ -1,33 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:movies_app/api/api_service/tmdb_service.dart';
 import 'package:movies_app/constant/url.dart';
 import 'package:movies_app/model/movie.dart';
 import 'package:movies_app/utils/context_extension.dart';
 
-class Tvrecommendation extends StatefulWidget {
-  const Tvrecommendation({super.key});
+class Tvrecommendation extends StatelessWidget {
+  final Future<List<Movie>> future;
+  const Tvrecommendation({super.key, required this.future});
 
-  @override
-  State<Tvrecommendation> createState() => _TvrecommendationState();
-}
-
-class _TvrecommendationState extends State<Tvrecommendation> {
-  late Future<List<Movie>> _tvrecommendation;
   final url = Url.baseImgUrl;
-
-  @override
-  void initState() {
-    _tvrecommendation = TmdbService().gettvrecommendation();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     final screenh = context.h;
     final screenw = context.w;
     return FutureBuilder<List<Movie>>(
-      future: _tvrecommendation,
+      future: future,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(

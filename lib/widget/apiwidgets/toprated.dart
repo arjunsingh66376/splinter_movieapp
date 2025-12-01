@@ -5,28 +5,22 @@ import 'package:movies_app/model/movie.dart';
 import 'package:movies_app/utils/context_extension.dart';
 
 class Toprated extends StatefulWidget {
-  const Toprated({super.key});
+  final Future<List<Movie>> future;
+  const Toprated({super.key, required this.future});
 
   @override
   State<Toprated> createState() => _TopratedState();
 }
 
 class _TopratedState extends State<Toprated> {
-  late Future<List<Movie>> _toprated;
   final url = Url.baseImgUrl;
-
-  @override
-  void initState() {
-    _toprated = TmdbService().gettoprated();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     final screenh = context.h;
     final screenw = context.w;
     return FutureBuilder<List<Movie>>(
-      future: _toprated,
+      future: widget.future,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app/api/api_service/tmdb_service.dart';
+import 'package:movies_app/model/movie.dart';
 import 'package:movies_app/widget/apiwidgets/airingtoday.dart';
 import 'package:movies_app/widget/apiwidgets/nowplaying.dart';
 import 'package:movies_app/widget/apiwidgets/toprated.dart';
@@ -15,6 +17,25 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+  late Future<List<Movie>> upcoming;
+  late Future<List<Movie>> nowplaying;
+  late Future<List<Movie>> toprated;
+  late Future<List<Movie>> airingtoday;
+  late Future<List<Movie>> tvrecommendation;
+  late Future<List<Movie>> popularmovies;
+
+  @override
+  void initState() {
+    upcoming = TmdbService().getupcoming();
+    airingtoday = TmdbService().getairingtoday();
+    toprated = TmdbService().gettoprated();
+    tvrecommendation = TmdbService().gettvrecommendation();
+    nowplaying = TmdbService().getnowplaying();
+    popularmovies = TmdbService().getpopularmovies();
+
+    super.initState();
+  }
+
   final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey();
 
   @override
@@ -61,7 +82,7 @@ class _HomepageState extends State<Homepage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              MoviesCarousel(),
+              MoviesCarousel(future: popularmovies),
 
               SizedBox(height: 30),
               Text(
@@ -76,7 +97,7 @@ class _HomepageState extends State<Homepage> {
               ),
               SizedBox(height: 10),
 
-              Nowplaying(),
+              Nowplaying(future: nowplaying),
 
               Text(
                 'Upcoming',
@@ -88,7 +109,7 @@ class _HomepageState extends State<Homepage> {
                 ),
               ),
               SizedBox(height: 10),
-              Upcoming(),
+              Upcoming(future: upcoming),
               SizedBox(height: 10),
               Text(
                 'top rated',
@@ -100,7 +121,7 @@ class _HomepageState extends State<Homepage> {
                 ),
               ),
               SizedBox(height: 10),
-              Toprated(),
+              Toprated(future: toprated),
               SizedBox(height: 10),
               Text(
                 'airing today',
@@ -112,7 +133,7 @@ class _HomepageState extends State<Homepage> {
                 ),
               ),
               SizedBox(height: 10),
-              Airingtoday(),
+              Airingtoday(future: airingtoday),
             ],
           ),
         ),

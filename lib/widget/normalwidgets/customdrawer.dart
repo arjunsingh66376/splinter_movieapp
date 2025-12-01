@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/firebase_function/firebasedb.dart';
+import 'package:movies_app/pages/loginscreen.dart';
 
 class Customdrawer extends StatelessWidget {
   const Customdrawer({super.key});
@@ -33,7 +34,12 @@ class Customdrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.logout_outlined, size: 15, color: Colors.white),
             title: Text('Logout', style: TextStyle(color: Colors.white)),
-            onTap: () => Firebasedb().signout(),
+            onTap: () {
+              Firebasedb().signout();
+              Navigator.of(
+                context,
+              ).push(MaterialPageRoute(builder: (context) => Loginscreen()));
+            },
           ),
         ],
       ),

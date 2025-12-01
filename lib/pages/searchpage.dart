@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app/api/api_service/tmdb_service.dart';
+import 'package:movies_app/model/movie.dart';
 import 'package:movies_app/widget/apiwidgets/searchbarapi.dart';
 import 'package:movies_app/widget/apiwidgets/tvrecommendation.dart';
 import 'package:movies_app/widget/normalwidgets/decoratedcards.dart';
@@ -13,9 +15,11 @@ class Searchpage extends StatefulWidget {
 class _SearchpageState extends State<Searchpage> {
   TextEditingController searchcontro = TextEditingController();
   bool issearhing = false;
+  late final Future<List<Movie>> tvrecommendation;
 
   @override
   void initState() {
+    tvrecommendation = TmdbService().gettvrecommendation();
     super.initState();
   }
 
@@ -102,7 +106,7 @@ class _SearchpageState extends State<Searchpage> {
                   ),
                 ),
                 SizedBox(height: 10),
-                Tvrecommendation(),
+                Tvrecommendation(future: tvrecommendation),
               ],
             ],
           ),
