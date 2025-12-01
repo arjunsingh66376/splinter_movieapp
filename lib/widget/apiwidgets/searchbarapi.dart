@@ -97,7 +97,7 @@ class _SearchbarapiState extends State<Searchbarapi> {
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                              color: Theme.of(context).primaryColor,
+                              color: Colors.white,
                               fontSize: 15,
                               fontWeight: FontWeight.w600,
                             ),

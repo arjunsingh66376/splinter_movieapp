@@ -14,6 +14,11 @@ class _SearchpageState extends State<Searchpage> {
   TextEditingController searchcontro = TextEditingController();
   bool issearhing = false;
 
+  @override
+  void initState() {
+    super.initState();
+  }
+
   void closebtn() {
     searchcontro.clear();
     FocusScope.of(context).unfocus();
@@ -31,7 +36,9 @@ class _SearchpageState extends State<Searchpage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
+        backgroundColor: Colors.black,
         title: Text(
           'search',
           style: TextStyle(fontFamily: 'pdark', color: Colors.red),
@@ -77,14 +84,22 @@ class _SearchpageState extends State<Searchpage> {
               ] else ...[
                 Text(
                   'start browsing ',
-                  style: TextStyle(fontFamily: 'pdark', fontSize: 18),
+                  style: TextStyle(
+                    fontFamily: 'pdark',
+                    color: Colors.red,
+                    fontSize: 18,
+                  ),
                 ),
                 SizedBox(height: 10),
                 Decoratedcards(),
                 SizedBox(height: 20),
                 Text(
                   'tv recommendation',
-                  style: TextStyle(fontFamily: 'pdark', fontSize: 18),
+                  style: TextStyle(
+                    fontFamily: 'pdark',
+                    color: Colors.red,
+                    fontSize: 18,
+                  ),
                 ),
                 SizedBox(height: 10),
                 Tvrecommendation(),

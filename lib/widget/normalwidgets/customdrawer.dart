@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app/firebase_function/firebasedb.dart';
 
 class Customdrawer extends StatelessWidget {
   const Customdrawer({super.key});
@@ -32,7 +33,7 @@ class Customdrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.logout_outlined, size: 15, color: Colors.white),
             title: Text('Logout', style: TextStyle(color: Colors.white)),
-            onTap: () => Navigator.pop(context),
+            onTap: () => Firebasedb().signout(),
           ),
         ],
       ),

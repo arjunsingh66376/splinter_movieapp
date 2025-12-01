@@ -52,4 +52,12 @@ class Firebasedb {
       rethrow;
     }
   }
+
+  Future<void> signout() async {
+    try {
+      return await _auth.signOut();
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

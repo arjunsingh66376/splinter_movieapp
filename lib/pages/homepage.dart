@@ -15,12 +15,6 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-  @override
-  void initState() {
-    Airingtoday();
-    super.initState();
-  }
-
   final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey();
 
   @override

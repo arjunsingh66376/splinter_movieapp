@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:movies_app/api/api_service/tmdb_service.dart';
 import 'package:movies_app/constant/url.dart';
 import 'package:movies_app/model/movie.dart';
@@ -71,7 +72,7 @@ class _TvrecommendationState extends State<Tvrecommendation> {
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                          color: Theme.of(context).primaryColor,
+                          color: Colors.white,
                           fontSize: 15,
                           fontWeight: FontWeight.w600,
                         ),
