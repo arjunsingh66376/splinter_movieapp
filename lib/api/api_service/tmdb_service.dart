@@ -21,7 +21,7 @@ class TmdbService {
         return data.map((movie) => Movie.fromMap((movie))).toList();
       } else {
         // print('error  ${response.statusCode}');
-        throw Exception('failed to load movies: ${response.statusCode}');
+        throw Exception('failed to getpopularmovies: ${response.statusCode}');
       }
     } catch (e) {
       // print(' error  : $e');
@@ -39,7 +39,7 @@ class TmdbService {
         return data.map((movie) => Movie.fromMap((movie))).toList();
       } else {
         // print('error  ${response.statusCode}');
-        throw Exception('failed to load movies: ${response.statusCode}');
+        throw Exception('failed to getnowplaying : ${response.statusCode}');
       }
     } catch (e) {
       // print(' error  : $e');
@@ -57,7 +57,7 @@ class TmdbService {
         return data.map((movie) => Movie.fromMap((movie))).toList();
       } else {
         // print('error  ${response.statusCode}');
-        throw Exception('failed to load movies: ${response.statusCode}');
+        throw Exception('failed to gettoprated: ${response.statusCode}');
       }
     } catch (e) {
       // print(' error  : $e');
@@ -75,7 +75,7 @@ class TmdbService {
         return data.map((movie) => Movie.fromMap((movie))).toList();
       } else {
         // print('error  ${response.statusCode}');
-        throw Exception('failed to load movies: ${response.statusCode}');
+        throw Exception('failed to getupcoming: ${response.statusCode}');
       }
     } catch (e) {
       // print(' error  : $e');
@@ -93,7 +93,7 @@ class TmdbService {
         return data.map((movie) => Movie.fromMap((movie))).toList();
       } else {
         // print('error  ${response.statusCode}');
-        throw Exception('failed to load movies: ${response.statusCode}');
+        throw Exception('failed to getairingtoday: ${response.statusCode}');
       }
     } catch (e) {
       // print(' error  : $e');
@@ -115,7 +115,7 @@ class TmdbService {
         return data.map((movie) => Movie.fromMap((movie))).toList();
       } else {
         print('error  ${response.statusCode}');
-        throw Exception('failed to load movies: ${response.statusCode}');
+        throw Exception('failed to getsearchmovies : ${response.statusCode}');
       }
     } catch (e) {
       print(' error  : $e');
@@ -133,7 +133,30 @@ class TmdbService {
         return data.map((movie) => Movie.fromMap((movie))).toList();
       } else {
         // print('error  ${response.statusCode}');
-        throw Exception('failed to load movies: ${response.statusCode}');
+        throw Exception(
+          'failed to gettvrecommendation : ${response.statusCode}',
+        );
+      }
+    } catch (e) {
+      // print(' error  : $e');
+
+      rethrow;
+    }
+  }
+
+  Future<Movie> getmoviedetails(int movieid) async {
+    try {
+      final response = await http.get(
+        Uri.parse(
+          'https://api.themoviedb.org/3/movie/$movieid?api_key=23607aa969d37982460b1c8a186290af&append_to_response=videos',
+        ),
+      );
+      if (response.statusCode == 200) {
+        final result = jsonDecode(response.body);
+        return Movie.fromMap(result);
+      } else {
+        // print('error  ${response.statusCode}');
+        throw Exception('failed to getmoviedetails: ${response.statusCode}');
       }
     } catch (e) {
       // print(' error  : $e');

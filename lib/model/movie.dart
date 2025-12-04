@@ -6,11 +6,19 @@ class Movie {
   String title;
   double voteaverage;
   String name;
+  String overview;
+
+  int id;
+  String? trailerKey;
   Movie({
     required this.posterpath,
     required this.title,
     required this.voteaverage,
     required this.name,
+    required this.overview,
+
+    required this.id,
+    required this.trailerKey,
   });
 
   Map<String, dynamic> toMap() {
@@ -19,15 +27,34 @@ class Movie {
       'title': title,
       'vote_average': voteaverage,
       'name': name,
+      'overview': overview,
+
+      'id': id,
+      'trailerKey': trailerKey,
     };
   }
 
   factory Movie.fromMap(Map<String, dynamic> map) {
+    String? trailer;
+
+    final videos = map['videos']?['results'] ?? [];
+
+    // Pick first playable YouTube trailer
+    final playableTrailer = videos.firstWhere(
+      (v) => v['site'] == 'YouTube' && v['type'] == 'Trailer',
+      orElse: () => null,
+    );
+
+    if (playableTrailer != null) trailer = playableTrailer['key'];
     return Movie(
       posterpath: map['poster_path'] ?? "",
-      title: map['title'] ?? "no title",
+      title: map['title'] ?? "Untitled",
       voteaverage: (map['vote_average'] ?? 0).toDouble(),
-      name: map['name'] ?? 'no name',
+      name: map['name'] ?? 'Untitled',
+      overview: map['overview'] ?? 'No description available',
+
+      id: map['id'] ?? 0,
+      trailerKey: trailer,
     );
   }
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/constant/url.dart';
+import 'package:movies_app/constant/customurl.dart';
 import 'package:movies_app/model/movie.dart';
 import 'package:movies_app/utils/context_extension.dart';
 
@@ -7,7 +7,7 @@ class Tvrecommendation extends StatelessWidget {
   final Future<List<Movie>> future;
   const Tvrecommendation({super.key, required this.future});
 
-  final url = Url.baseImgUrl;
+  final url = Customurl.baseImgUrl;
 
   @override
   Widget build(BuildContext context) {

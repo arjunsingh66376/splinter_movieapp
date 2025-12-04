@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_app/firebase_function/firebasedb.dart';
 import 'package:movies_app/function/showresetdialog.dart';
+import 'package:movies_app/pages/bottomtabnavigationpage.dart';
 import 'package:movies_app/pages/homepage.dart';
 import 'package:movies_app/utils/context_extension.dart';
 import 'package:movies_app/widget/normalwidgets/elevatedbutton.dart';
@@ -57,15 +58,15 @@ class _LoginscreenState extends State<Loginscreen> {
       if (context.mounted) {
         Fluttertoast.showToast(
           msg: islogin ? "login successful" : "signup successful",
-          backgroundColor: Colors.black,
-          textColor: Colors.white,
+          backgroundColor: Colors.white,
+          textColor: Colors.red,
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
         );
 
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => Homepage()),
+          MaterialPageRoute(builder: (context) => Bottomtabnavigationpage()),
         );
       }
     } on FirebaseAuthException catch (error) {

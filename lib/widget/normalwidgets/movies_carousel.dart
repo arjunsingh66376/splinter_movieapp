@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:movies_app/api/api_service/tmdb_service.dart';
 import 'package:movies_app/model/movie.dart';
+import 'package:movies_app/pages/moviedetails.dart';
 import 'package:movies_app/utils/context_extension.dart';
 
 class MoviesCarousel extends StatefulWidget {
@@ -48,10 +49,17 @@ class _MoviesCarouselState extends State<MoviesCarousel> {
                       ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(12),
-                        child: Image.network(
-                          '$baseimgurl${i.posterpath}',
-                          fit: BoxFit.fill,
-                          width: screenw,
+                        child: GestureDetector(
+                          onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => MovieDetails(id: i.id),
+                            ),
+                          ),
+                          child: Image.network(
+                            '$baseimgurl${i.posterpath}',
+                            fit: BoxFit.fill,
+                            width: screenw,
+                          ),
                         ),
                       ),
                     ),

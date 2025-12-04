@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/api/api_service/tmdb_service.dart';
-import 'package:movies_app/constant/url.dart';
+import 'package:movies_app/constant/customurl.dart';
 import 'package:movies_app/model/movie.dart';
 import 'package:movies_app/utils/context_extension.dart';
 
@@ -15,7 +15,7 @@ class Searchbarapi extends StatefulWidget {
 class _SearchbarapiState extends State<Searchbarapi> {
   late Future<List<Movie>> _searchmovie;
   TmdbService tmdbservice = TmdbService();
-  final String imgurl = Url.baseImgUrl;
+  final String imgurl = Customurl.baseImgUrl;
 
   @override
   void initState() {

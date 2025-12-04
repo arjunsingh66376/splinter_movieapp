@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/api/api_service/tmdb_service.dart';
-import 'package:movies_app/constant/url.dart';
+import 'package:movies_app/constant/customurl.dart';
 import 'package:movies_app/model/movie.dart';
 import 'package:movies_app/utils/context_extension.dart';
 
@@ -14,7 +14,7 @@ class Nowplaying extends StatefulWidget {
 }
 
 class _NowplayingState extends State<Nowplaying> {
-  final String imgurl = Url.baseImgUrl;
+  final String imgurl = Customurl.baseImgUrl;
 
   @override
   Widget build(BuildContext context) {

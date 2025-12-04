@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/api/api_service/tmdb_service.dart';
-import 'package:movies_app/constant/url.dart';
+import 'package:movies_app/constant/customurl.dart';
 import 'package:movies_app/model/movie.dart';
+import 'package:movies_app/pages/moviedetails.dart';
 import 'package:movies_app/utils/context_extension.dart';
 
 class Airingtoday extends StatefulWidget {
@@ -13,7 +14,7 @@ class Airingtoday extends StatefulWidget {
 }
 
 class _AiringtodayState extends State<Airingtoday> {
-  final url = Url.baseImgUrl;
+  final url = Customurl.baseImgUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -51,9 +52,16 @@ class _AiringtodayState extends State<Airingtoday> {
                         width: screenw * 0.3,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(6),
-                          child: Image.network(
-                            '$url${m.posterpath}',
-                            fit: BoxFit.cover,
+                          child: GestureDetector(
+                            onTap: () => Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => MovieDetails(id: m.id),
+                              ),
+                            ),
+                            child: Image.network(
+                              '$url${m.posterpath}',
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                       ),

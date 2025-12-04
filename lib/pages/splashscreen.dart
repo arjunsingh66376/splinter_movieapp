@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:movies_app/helper/firebaseauth_check.dart';
 import 'package:movies_app/utils/context_extension.dart';
-import 'package:movies_app/widget/normalwidgets/bottomtabnavigation.dart';
 
 class Splashscreen extends StatelessWidget {
   const Splashscreen({super.key});
@@ -22,9 +22,7 @@ class Splashscreen extends StatelessWidget {
               animationinfo.duration,
               () => Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => Bottomtabnavigationpage(),
-                ),
+                MaterialPageRoute(builder: (context) => FirebaseauthCheck()),
               ),
             );
           },
