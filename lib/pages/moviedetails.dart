@@ -57,8 +57,6 @@ class _MovieDetailsState extends State<MovieDetails> {
 
   @override
   Widget build(BuildContext context) {
-    final screenh = context.h;
-    final screenw = context.w;
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -68,7 +66,10 @@ class _MovieDetailsState extends State<MovieDetails> {
           "movie details",
           style: TextStyle(color: Colors.red, fontFamily: 'pdark'),
         ),
-        leading: Icon(Icons.arrow_back_ios_new, color: Colors.red),
+        leading: GestureDetector(
+          onTap: () => Navigator.pop(context),
+          child: Icon(Icons.arrow_back_ios_new, color: Colors.red),
+        ),
       ),
       body: loading
           ? const Center(child: CircularProgressIndicator(color: Colors.red))
@@ -81,32 +82,33 @@ class _MovieDetailsState extends State<MovieDetails> {
                 children: [
                   // Poster with YouTube overlay
                   Stack(
+                    alignment: Alignment.center,
                     children: [
-                      Container(
-                        width: screenw,
-                        height: screenh * 0.2,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: NetworkImage(
-                              "https://image.tmdb.org/t/p/w500${movie!.posterpath}",
-                            ),
-                            fit: BoxFit.fill,
-                          ),
+                      AspectRatio(
+                        aspectRatio: 2 / 2, // typical poster ratio
+                        child: Image.network(
+                          "https://image.tmdb.org/t/p/w500${movie!.posterpath}",
+                          fit: BoxFit.contain,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Container(
+                              color: Colors.grey.shade700,
+                              child: Icon(
+                                Icons.broken_image,
+                                color: Colors.red,
+                                size: 60,
+                              ),
+                            );
+                          },
                         ),
                       ),
                       if (movie!.trailerKey != null)
-                        Positioned.fill(
-                          child: Center(
-                            child: IconButton(
-                              icon: const Icon(
-                                Icons.play_circle_outline,
-                                size: 64,
-                                color: Colors.red,
-                              ),
-                              onPressed: () =>
-                                  _launchTrailer(movie!.trailerKey!),
-                            ),
+                        IconButton(
+                          icon: const Icon(
+                            Icons.play_circle_outline,
+                            size: 64,
+                            color: Colors.white,
                           ),
+                          onPressed: () => _launchTrailer(movie!.trailerKey!),
                         ),
                     ],
                   ),

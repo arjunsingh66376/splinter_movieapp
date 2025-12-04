@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movies_app/api/api_service/tmdb_service.dart';
 import 'package:movies_app/constant/customurl.dart';
 import 'package:movies_app/model/movie.dart';
+import 'package:movies_app/pages/moviedetails.dart';
 import 'package:movies_app/utils/context_extension.dart';
 
 class Searchbarapi extends StatefulWidget {
@@ -74,19 +75,28 @@ class _SearchbarapiState extends State<Searchbarapi> {
                                       color: Colors.red,
                                     ),
                                   )
-                                : Image.network(
-                                    '$imgurl${m.posterpath}',
-                                    fit: BoxFit.fill,
+                                : GestureDetector(
+                                    onTap: () => Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            MovieDetails(id: m.id),
+                                      ),
+                                    ),
+                                    child: Image.network(
+                                      '$imgurl${m.posterpath}',
+                                      fit: BoxFit.fill,
 
-                                    errorBuilder: (context, error, stackTrace) {
-                                      return Container(
-                                        color: Colors.grey.shade700,
-                                        child: Icon(
-                                          Icons.broken_image,
-                                          color: Colors.red,
-                                        ),
-                                      );
-                                    },
+                                      errorBuilder:
+                                          (context, error, stackTrace) {
+                                            return Container(
+                                              color: Colors.grey.shade700,
+                                              child: Icon(
+                                                Icons.broken_image,
+                                                color: Colors.red,
+                                              ),
+                                            );
+                                          },
+                                    ),
                                   ),
                           ),
                         ),
