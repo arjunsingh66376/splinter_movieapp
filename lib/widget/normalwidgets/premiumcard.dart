@@ -21,10 +21,12 @@ class PremiumCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: Colors.white,
+        image: DecorationImage(
+          image: AssetImage('images/cardbgimage1.jpg'),
+          fit: BoxFit.fill,
+        ),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
@@ -32,72 +34,73 @@ class PremiumCard extends StatelessWidget {
         children: [
           const Text(
             "Premium",
-            style: TextStyle(color: Colors.black, fontSize: 12),
-          ),
-          const SizedBox(height: 2),
-          Text(
-            planName,
-            style: const TextStyle(
+            style: TextStyle(
               color: Colors.black,
-              fontSize: 20,
+              fontSize: 12,
               fontWeight: FontWeight.bold,
             ),
           ),
+
+          const SizedBox(height: 4),
+          Text(
+            planName,
+            style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
+
           const SizedBox(height: 4),
           Text(
             priceInfo,
-            style: const TextStyle(color: Colors.black, fontSize: 16),
+            style: const TextStyle(fontSize: 16, color: Colors.white),
           ),
+
           if (afterPrice.isNotEmpty)
             Text(
               afterPrice,
-              style: const TextStyle(color: Colors.black, fontSize: 12),
+              style: const TextStyle(fontSize: 12, color: Colors.white),
             ),
 
-          const SizedBox(height: 12),
+          const SizedBox(height: 10),
 
-          /// FEATURES
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: features
-                .map(
-                  (feat) => Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 2),
-                    child: Row(
-                      children: [
-                        const Icon(
-                          Icons.circle,
-                          size: 6,
-                          color: Colors.black87,
-                        ),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          child: Text(
-                            feat,
-                            style: const TextStyle(
-                              color: Colors.black87,
-                              fontSize: 12,
+          Expanded(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: features
+                  .map(
+                    (feat) => Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 2),
+                      child: Row(
+                        children: [
+                          const Icon(Icons.circle, size: 6),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: Text(
+                              feat,
+                              style: const TextStyle(
+                                fontSize: 12,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                )
-                .toList(),
+                  )
+                  .toList(),
+            ),
           ),
 
-          const SizedBox(height: 14),
+          const SizedBox(height: 10),
 
-          /// BUTTON
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(vertical: 10),
-                elevation: 0,
                 backgroundColor: buttonColor,
-                foregroundColor: Colors.black,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(25),
                 ),
@@ -108,6 +111,7 @@ class PremiumCard extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
+                  color: Colors.black,
                 ),
               ),
             ),
