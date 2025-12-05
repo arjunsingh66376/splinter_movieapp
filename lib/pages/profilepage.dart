@@ -2,8 +2,11 @@ import 'dart:ui';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:movies_app/api/api_service/tmdb_service.dart';
 import 'package:movies_app/firebase_function/firebasedb.dart';
+import 'package:movies_app/model/movie.dart';
 import 'package:movies_app/utils/context_extension.dart';
+import 'package:movies_app/widget/apiwidgets/upcoming.dart';
 import 'package:movies_app/widget/normalwidgets/premiumcard.dart';
 
 class Profilepage extends StatefulWidget {
@@ -14,6 +17,14 @@ class Profilepage extends StatefulWidget {
 }
 
 class _ProfilepageState extends State<Profilepage> {
+  late Future<List<Movie>> upcoming;
+
+  @override
+  void initState() {
+    upcoming = TmdbService().getupcoming();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenh = context.h;
@@ -29,7 +40,6 @@ class _ProfilepageState extends State<Profilepage> {
         ),
       ),
 
-      // ---- BODY WITH FULL BACKGROUND ----
       body: Container(
         width: double.infinity,
         height: double.infinity,
@@ -41,11 +51,9 @@ class _ProfilepageState extends State<Profilepage> {
           ),
         ),
 
-        // ---- SAFE SCROLLING ----
         child: ListView(
           padding: const EdgeInsets.all(10),
           children: [
-            // ---------------- PROFILE CARD -----------------
             StreamBuilder(
               stream: Firebasedb().getuserinfo(
                 FirebaseAuth.instance.currentUser!.uid,
@@ -70,16 +78,13 @@ class _ProfilepageState extends State<Profilepage> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(15),
 
-                    // ---- GLASS EFFECT ----
                     child: BackdropFilter(
                       filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                       child: Container(
-                        width: screenw * 0.79,
-
-                        padding: const EdgeInsets.all(15),
+                        width: screenw * 0.7,
 
                         decoration: BoxDecoration(
-                          color: Colors.white.withValues(alpha: 0.15),
+                          color: Colors.black.withValues(alpha: 0.15),
                           borderRadius: BorderRadius.circular(15),
                           border: Border.all(
                             color: Colors.white.withValues(alpha: 0.2),
@@ -88,9 +93,7 @@ class _ProfilepageState extends State<Profilepage> {
 
                         child: ListTile(
                           isThreeLine: true,
-                          minVerticalPadding: 10,
 
-                          // minTileHeight: screenh * 0.1,
                           leading: Container(
                             width: screenw * 0.2,
                             decoration: const BoxDecoration(
@@ -194,6 +197,18 @@ class _ProfilepageState extends State<Profilepage> {
                 ),
               ],
             ),
+
+            SizedBox(height: 30),
+            Text(
+              'Upcoming',
+              style: TextStyle(
+                fontFamily: 'pdark',
+                fontSize: 20,
+                color: Colors.white,
+              ),
+            ),
+            SizedBox(height: 10),
+            Upcoming(future: upcoming),
           ],
         ),
       ),
