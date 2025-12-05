@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -28,11 +29,11 @@ class _ProfilepageState extends State<Profilepage> {
         ),
       ),
 
+      // ---- BODY WITH FULL BACKGROUND ----
       body: Container(
         width: double.infinity,
         height: double.infinity,
 
-        // ---- BACKGROUND IMAGE FIX (covers entire screen) ----
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('images/profilebg.jpg'),
@@ -40,10 +41,11 @@ class _ProfilepageState extends State<Profilepage> {
           ),
         ),
 
-        // ---- USE LISTVIEW (NOT SingleChildScrollView) ----
+        // ---- SAFE SCROLLING ----
         child: ListView(
           padding: const EdgeInsets.all(10),
           children: [
+            // ---------------- PROFILE CARD -----------------
             StreamBuilder(
               stream: Firebasedb().getuserinfo(
                 FirebaseAuth.instance.currentUser!.uid,
@@ -54,37 +56,49 @@ class _ProfilepageState extends State<Profilepage> {
                 }
 
                 if (!snapshot.hasData || !snapshot.data!.exists) {
-                  return const Text("User data not found");
+                  return const Center(
+                    child: Text(
+                      "User data not found",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  );
                 }
 
                 final data = snapshot.data!.data() as Map<String, dynamic>;
 
                 return Center(
-                  child: Container(
-                    width: screenw,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      image: const DecorationImage(
-                        image: AssetImage('images/cardbgimage1.jpg'),
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                    child: Material(
-                      color: Colors.transparent,
-                      child: Padding(
-                        padding: const EdgeInsets.all(0),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+
+                    // ---- GLASS EFFECT ----
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                      child: Container(
+                        width: screenw * 0.79,
+
+                        padding: const EdgeInsets.all(15),
+
+                        decoration: BoxDecoration(
+                          color: Colors.white.withValues(alpha: 0.15),
+                          borderRadius: BorderRadius.circular(15),
+                          border: Border.all(
+                            color: Colors.white.withValues(alpha: 0.2),
+                          ),
+                        ),
+
                         child: ListTile(
                           isThreeLine: true,
-                          minVerticalPadding: 20,
-                          minTileHeight: screenh * 0.3,
+                          minVerticalPadding: 10,
 
+                          // minTileHeight: screenh * 0.1,
                           leading: Container(
                             width: screenw * 0.2,
                             decoration: const BoxDecoration(
-                              color: Colors.black,
+                              color: Colors.red,
                               shape: BoxShape.circle,
                               image: DecorationImage(
                                 image: AssetImage('images/avatar.png'),
+                                fit: BoxFit.cover,
                               ),
                             ),
                           ),
@@ -94,9 +108,9 @@ class _ProfilepageState extends State<Profilepage> {
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
-                              fontSize: 20,
+                              fontSize: 22,
                               fontWeight: FontWeight.bold,
-                              color: Colors.black,
+                              color: Colors.white,
                             ),
                           ),
 
@@ -108,23 +122,26 @@ class _ProfilepageState extends State<Profilepage> {
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: GoogleFonts.merriweather(
-                                  fontSize: 13,
-                                  color: Colors.white,
+                                  fontSize: 14,
+                                  color: Colors.white70,
                                 ),
                               ),
-                              const SizedBox(height: 5),
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.black,
+                              const SizedBox(height: 10),
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                  vertical: 5,
                                 ),
-                                onPressed: () {},
-
-                                child: Text(
+                                decoration: BoxDecoration(
+                                  color: Colors.black.withValues(alpha: 0.6),
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                child: const Text(
                                   'Free Plan',
                                   style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.red,
+                                    color: Colors.redAccent,
                                     fontWeight: FontWeight.bold,
+                                    fontSize: 12,
                                   ),
                                 ),
                               ),
@@ -140,7 +157,7 @@ class _ProfilepageState extends State<Profilepage> {
 
             const SizedBox(height: 20),
 
-            // ---- PLANS GRID ----
+            // ---------------- PREMIUM PLANS -----------------
             GridView.count(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -162,7 +179,6 @@ class _ProfilepageState extends State<Profilepage> {
                   buttonText: "Try 3 months for ₹99",
                   buttonColor: Color(0xff1ed760),
                 ),
-
                 PremiumCard(
                   planName: "Platinum",
                   priceInfo: "₹299 / month",
@@ -173,7 +189,7 @@ class _ProfilepageState extends State<Profilepage> {
                     "AI DJ",
                     "Mix playlists",
                   ],
-                  buttonText: "Get Platinum for ₹299 ",
+                  buttonText: "Get Platinum for ₹299",
                   buttonColor: Colors.yellowAccent,
                 ),
               ],
