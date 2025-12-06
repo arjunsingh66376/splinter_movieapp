@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:movies_app/api/api_service/tmdb_service.dart';
 import 'package:movies_app/firebase_function/firebasedb.dart';
 import 'package:movies_app/model/movie.dart';
+import 'package:movies_app/pages/favoritepage.dart';
 import 'package:movies_app/utils/context_extension.dart';
 import 'package:movies_app/widget/apiwidgets/upcoming.dart';
 import 'package:movies_app/widget/normalwidgets/premiumcard.dart';
@@ -32,6 +33,18 @@ class _ProfilepageState extends State<Profilepage> {
 
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          Padding(
+            padding: EdgeInsets.only(right: 30),
+            child: IconButton(
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Favoritepage()),
+              ),
+              icon: Icon(Icons.favorite_border, color: Colors.red),
+            ),
+          ),
+        ],
         backgroundColor: Colors.black,
         centerTitle: true,
         title: const Text(

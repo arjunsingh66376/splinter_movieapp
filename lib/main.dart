@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:movies_app/firebase_function/firebasedb.dart';
 import 'package:movies_app/pages/splashscreen.dart';
+import 'package:movies_app/provider/FavoritesProvider%20.dart';
 import 'package:movies_app/provider/authprovider.dart';
 import 'package:provider/provider.dart';
 
@@ -9,7 +11,12 @@ void main() async {
   await Firebase.initializeApp();
   runApp(
     MultiProvider(
-      providers: [ChangeNotifierProvider(create: (context) => Authprovider())],
+      providers: [
+        ChangeNotifierProvider(create: (context) => Authprovider()),
+        ChangeNotifierProvider(
+          create: (context) => FavoriteProvider(Firebasedb()),
+        ),
+      ],
       child: const MyApp(),
     ),
   );
