@@ -33,18 +33,6 @@ class _ProfilepageState extends State<Profilepage> {
 
     return Scaffold(
       appBar: AppBar(
-        actions: [
-          Padding(
-            padding: EdgeInsets.only(right: 30),
-            child: IconButton(
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Favoritepage()),
-              ),
-              icon: Icon(Icons.favorite_border, color: Colors.red),
-            ),
-          ),
-        ],
         backgroundColor: Colors.black,
         centerTitle: true,
         title: const Text(

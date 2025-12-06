@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/api/api_service/tmdb_service.dart';
 import 'package:movies_app/model/movie.dart';
+import 'package:movies_app/pages/favoritepage.dart';
 import 'package:movies_app/widget/apiwidgets/airingtoday.dart';
 import 'package:movies_app/widget/apiwidgets/nowplaying.dart';
 import 'package:movies_app/widget/apiwidgets/toprated.dart';
@@ -74,7 +75,19 @@ class _HomepageState extends State<Homepage> {
             ],
           ),
         ),
-        // centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Favoritepage()),
+            ),
+            icon: Icon(
+              Icons.favorite_outline_outlined,
+              color: Colors.red,
+              size: 30,
+            ),
+          ),
+        ],
       ),
       body: Container(
         padding: EdgeInsets.all(10),

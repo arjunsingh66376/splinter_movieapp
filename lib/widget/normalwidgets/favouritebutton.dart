@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:movies_app/provider/FavoritesProvider%20.dart';
 import 'package:provider/provider.dart';
 

@@ -122,7 +122,7 @@ class _SearchbarapiState extends State<Searchbarapi> {
             ),
           );
         }
-        return const Text('no movies found ');
+        return Text('no movies found ', style: TextStyle(color: Colors.white));
       },
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:movies_app/firebase_function/firebasedb.dart';
 
 class FavoriteProvider with ChangeNotifier {
@@ -25,11 +26,25 @@ class FavoriteProvider with ChangeNotifier {
 
     if (isFav) {
       await db.removeFavorite(movieId);
+      Fluttertoast.showToast(
+        msg: 'movie removed from favorites',
+        backgroundColor: Colors.black,
+        textColor: Colors.white,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+      );
     } else {
       await db.addFavorite(
         movieId: movieId,
         title: title,
         posterPath: posterPath,
+      );
+      Fluttertoast.showToast(
+        msg: 'movie added to  favorites',
+        backgroundColor: Colors.black,
+        textColor: Colors.white,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
       );
     }
   }

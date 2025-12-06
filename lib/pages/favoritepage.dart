@@ -26,7 +26,12 @@ class Favoritepage extends StatelessWidget {
       ),
 
       body: favorites.isEmpty
-          ? const Center(child: Text("No favorites yet"))
+          ? const Center(
+              child: Text(
+                "No favorites yet",
+                style: TextStyle(color: Colors.red, fontSize: 25),
+              ),
+            )
           : GridView.builder(
               padding: const EdgeInsets.all(10),
               itemCount: favorites.length,

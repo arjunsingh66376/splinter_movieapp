@@ -4,6 +4,7 @@ import 'package:movies_app/constant/customurl.dart';
 import 'package:movies_app/model/movie.dart';
 import 'package:movies_app/pages/moviedetails.dart';
 import 'package:movies_app/utils/context_extension.dart';
+import 'package:movies_app/widget/normalwidgets/favouritebutton.dart';
 
 class Nowplaying extends StatefulWidget {
   final Future<List<Movie>> future;
@@ -52,19 +53,33 @@ class _NowplayingState extends State<Nowplaying> {
                       SizedBox(
                         height: screenh * 0.16,
                         width: screenw * 0.3,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(6),
-                          child: GestureDetector(
-                            onTap: () => Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => MovieDetails(id: m.id),
+                        child: Stack(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(6),
+                              child: GestureDetector(
+                                onTap: () => Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        MovieDetails(id: m.id),
+                                  ),
+                                ),
+                                child: Image.network(
+                                  '$imgurl${m.posterpath}',
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
-                            child: Image.network(
-                              '$imgurl${m.posterpath}',
-                              fit: BoxFit.cover,
+                            Positioned(
+                              right: 0,
+                              top: 0,
+                              child: FavoriteButton(
+                                movieId: m.id.toString(),
+                                title: m.title,
+                                posterPath: '$imgurl${m.posterpath}',
+                              ),
                             ),
-                          ),
+                          ],
                         ),
                       ),
 
